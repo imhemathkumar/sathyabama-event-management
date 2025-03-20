@@ -1,0 +1,6 @@
+{
+    "zencoder.enableRepoIndexing": true,
+    "files.watcherExclude": {
+        "**/target": true
+    }
+}
