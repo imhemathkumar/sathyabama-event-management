@@ -48,9 +48,28 @@ export function isAuthenticated(): boolean {
     }
   
     const { userId, userType } = user
-    const dashboardPath = userType === "student" ? "/student-dashboard" : "/faculty-dashboard"
+    const dashboardPath = userType === "student" ? "/dashboard/student" : "/dashboard/faculty"
   
     router.push(`${dashboardPath}?id=${userId}`)
   }
-  
+  /**
+ * Clears any existing auth session on initial load
+ * This ensures users start fresh when they first visit the site
+ */
+export function clearAuthOnInitialLoad(): void {
+  // Only run this in the browser
+  if (typeof window === "undefined") return
+
+  // Check if this is the first load of the application
+  const hasVisited = sessionStorage.getItem("hasVisited")
+
+  if (!hasVisited) {
+    // First visit in this session, clear any existing auth
+    logout()
+    // Mark that user has visited
+    sessionStorage.setItem("hasVisited", "true")
+  }
+}
+
+
   
