@@ -15,6 +15,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import { clearAuthOnInitialLoad } from "@/lib/auth-utils"
 
 const formSchema = z.object({
   regNo: z.string().min(1, "Registration number is required"),
@@ -29,6 +30,10 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
+  // Clear any existing auth when visiting login page
+  useEffect(() => {
+    clearAuthOnInitialLoad()
+  }, [])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
