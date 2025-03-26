@@ -3,6 +3,7 @@
 import { AuthRedirect } from "@/components/auth-redirect"
 import { ParticlesAnimation } from "@/components/particles-animation"
 import { Button } from "@/components/ui/button"
+import { clearAuthOnInitialLoad } from "@/lib/auth-utils"
 import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 import { Award, BookOpen, Building, Calendar, FileText, GraduationCap, Users } from "lucide-react"
 import Image from "next/image"
@@ -13,6 +14,10 @@ import { useEffect, useRef, useState } from "react"
 export default function Home() {
   const router = useRouter()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  // Clear any existing auth on initial page load
+  useEffect(() => {
+    clearAuthOnInitialLoad()
+  }, [])
 
   // Refs for animations
   const heroRef = useRef(null)
